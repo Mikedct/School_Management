@@ -228,7 +228,7 @@
                     <div class="col-md-6">
                         <div class="header-content">
                             <h2>
-                                <i class="bi bi-flag-fill me-2"></i>Report Management
+                                <i class="bi bi-flag-fill me-2"></i>Absent Management
                             </h2>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -236,7 +236,7 @@
                                         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('admin.reports.index') }}">Report</a>
+                                        <a href="{{ route('admin.absents.index') }}">Absent</a>
                                     </li>
                                     <li class="breadcrumb-item active">Detail</li>
                                 </ol>
@@ -249,7 +249,7 @@
         <div class="container mt-4 mb-5">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Incident Report Details</h5>
+                    <h5 class="mb-0">Incident Absent Details</h5>
                 </div>
 
                 <div class="card-body">
@@ -257,18 +257,18 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <strong>Judul:</strong>
-                            <p>{{ $report->title }}</p>
+                            <p>{{ $absent->title }}</p>
                         </div>
                         <div class="col-md-6">
                             <strong>Status:</strong><br>
-                            @if($report->status === 'new')
+                            @if($absent->status === 'new')
                                 <span class="badge bg-danger">New</span>
-                            @elseif($report->status === 'in_progress')
+                            @elseif($absent->status === 'in_progress')
                                 <span class="badge bg-warning text-dark">In Process</span>
-                            @elseif($report->status === 'done')
+                            @elseif($absent->status === 'done')
                                 <span class="badge bg-success">Done</span>
                             @else
-                                <span class="badge bg-dark">{{ $report->status }}</span>
+                                <span class="badge bg-dark">{{ $absent->status }}</span>
                             @endif
                         </div>
                     </div>
@@ -276,26 +276,26 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <strong>Lab:</strong>
-                            <p>{{ $report->labName }}</p>
+                            <p>{{ $absent->labName }}</p>
                         </div>
                         <div class="col-md-6">
                             <strong>Computer:</strong>
-                            <p>{{ $report->computerName }}</p>
+                            <p>{{ $absent->computerName }}</p>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <strong>Description of Disorders:</strong>
                         <div class="border rounded p-3 bg-light">
-                            {{ $report->description }}
+                            {{ $absent->description }}
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <strong>Appendix:</strong><br>
 
-                        @if($report->attachment)
-                            <img src="{{ route('admin.reports.attachment', $report->reportID) }}"
+                        @if($absent->attachment)
+                            <img src="{{ route('admin.absents.attachment', $absent->absentID) }}"
                                 class="img-fluid rounded border" style="max-height: 400px" alt="Lampiran laporan">
 
                         @else
@@ -305,19 +305,19 @@
 
                     <div class="mb-3">
                         <strong>Change Status:</strong>
-                        <form action="{{ route('admin.reports.updateStatus', $report->reportID) }}" method="POST"
+                        <form action="{{ route('admin.absents.updateStatus', $absent->absentID) }}" method="POST"
                             class="d-inline">
                             @csrf
                             @method('PUT')
 
                             <select name="status" class="form-select d-inline w-auto">
-                                <option value="new" {{ $report->status == 'new' ? 'selected' : '' }}>
+                                <option value="new" {{ $absent->status == 'new' ? 'selected' : '' }}>
                                     New
                                 </option>
-                                <option value="in_progress" {{ $report->status == 'in_progress' ? 'selected' : '' }}>
+                                <option value="in_progress" {{ $absent->status == 'in_progress' ? 'selected' : '' }}>
                                     In Process
                                 </option>
-                                <option value="done" {{ $report->status == 'done' ? 'selected' : '' }}>
+                                <option value="done" {{ $absent->status == 'done' ? 'selected' : '' }}>
                                     Done
                                 </option>
                             </select>
@@ -330,8 +330,8 @@
                     </div>
 
                     <div class="text-muted">
-                        Created At: {{ \Carbon\Carbon::parse($report->created_at)->format('d M Y H:i') }} <br>
-                        Last Updated: {{ \Carbon\Carbon::parse($report->updated_at)->format('d M Y H:i') }}
+                        Created At: {{ \Carbon\Carbon::parse($absent->created_at)->format('d M Y H:i') }} <br>
+                        Last Updated: {{ \Carbon\Carbon::parse($absent->updated_at)->format('d M Y H:i') }}
                     </div>
 
                 </div>
