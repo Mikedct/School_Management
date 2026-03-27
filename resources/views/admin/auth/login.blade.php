@@ -269,10 +269,8 @@
 <body>
 
 <div class="login-container">
-    <!-- Left Section - Branding with Animation -->
     <div class="left-section">
         <div class="logo-container">
-            <!-- Ganti dengan logo universitas Anda -->
             <img src="{{ asset('./images/Logo.png') }}" alt="Logo SMAS Perguruan Buddhi" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size:48px;font-weight:bold;color:#b72024\'>UBD</div>'">
         </div>
         
