@@ -262,13 +262,13 @@
                                     <li class="breadcrumb-item">
                                         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Users</li>
+                                    <li class="breadcrumb-item active">students</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                     <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-light">
+                        <a href="{{ route('admin.students.create') }}" class="btn btn-light">
                             <i class="bi bi-plus-circle me-1"></i> Add new user
                         </a>
                     </div>
@@ -285,8 +285,8 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div class="stat-content-small">
-                            <h4>{{ $totalUsers }}</h4>
-                            <p>Total Users</p>
+                            <h4>{{ $totalstudents }}</h4>
+                            <p>Total students</p>
                         </div>
                     </div>
                 </div>
@@ -296,8 +296,8 @@
                             <i class="bi bi-check-circle"></i>
                         </div>
                         <div class="stat-content-small">
-                            <h4>{{ $activeUsers }}</h4>
-                            <p>Active Users</p>
+                            <h4>{{ $activestudents }}</h4>
+                            <p>Active students</p>
                         </div>
                     </div>
                 </div>
@@ -307,15 +307,15 @@
                             <i class="bi bi-x-circle"></i>
                         </div>
                         <div class="stat-content-small">
-                            <h4>{{ $inactiveUsers }}</h4>
-                            <p>Inactive Users</p>
+                            <h4>{{ $inactivestudents }}</h4>
+                            <p>Inactive students</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Users Table -->
+        <!-- students Table -->
         <div class="container mb-5">
             <!-- Success/Error Messages -->
             @if(session('success'))
@@ -339,7 +339,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <h5 class="mb-0">
-                                <i class="bi bi-list-ul me-2"></i>Users List
+                                <i class="bi bi-list-ul me-2"></i>students List
                             </h5>
                         </div>
                         <div class="col-md-6">
@@ -353,7 +353,7 @@
 
                 <div class="table-card-body">
                     <div class="table-responsive">
-                        <table class="table" id="usersTable">
+                        <table class="table" id="studentsTable">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -366,7 +366,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($users as $index => $user)
+                                @forelse($students as $index => $user)
                                 <tr>
                                     <td><strong>{{ $index + 1 }}</strong></td>
                                     <td>
@@ -406,12 +406,12 @@
                                     <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ route('admin.users.show', $user->userID) }}" 
+                                            <a href="{{ route('admin.students.show', $user->userID) }}" 
                                                class="btn btn-outline-info btn-action" 
                                                title="Detail">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="{{ route('admin.users.edit', $user->userID) }}" 
+                                            <a href="{{ route('admin.students.edit', $user->userID) }}" 
                                                class="btn btn-outline-warning btn-action" 
                                                title="Edit">
                                                 <i class="bi bi-pencil"></i>
@@ -432,7 +432,7 @@
                                             <i class="bi bi-inbox"></i>
                                             <h5>No User Data Yet</h5>
                                             <p>Click the “Add New User” button to add the first user.</p>
-                                            <a href="{{ route('admin.users.create') }}" class="btn btn-primary mt-3">
+                                            <a href="{{ route('admin.students.create') }}" class="btn btn-primary mt-3">
                                                 <i class="bi bi-plus-circle me-1"></i> Add New User
                                             </a>
                                         </div>
@@ -482,7 +482,7 @@
         // Search functionality
         document.getElementById('searchInput').addEventListener('keyup', function() {
             const searchValue = this.value.toLowerCase();
-            const tableRows = document.querySelectorAll('#usersTable tbody tr');
+            const tableRows = document.querySelectorAll('#studentsTable tbody tr');
             
             tableRows.forEach(row => {
                 const text = row.textContent.toLowerCase();
@@ -493,7 +493,7 @@
         // Delete confirmation
         function confirmDelete(userId, userName) {
             document.getElementById('deleteUserName').textContent = userName;
-            document.getElementById('deleteForm').action = `/admin/users/${userId}`;
+            document.getElementById('deleteForm').action = `/admin/students/${userId}`;
             
             const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
             deleteModal.show();

@@ -10,11 +10,16 @@ class AdminAuth
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // ✅ Cek apakah admin sudah login
+        if (!session()->has('adminID')) {
+            return redirect()->route('admin.auth.login')
+                ->withErrors(['login' => 'Silakan login terlebih dahulu']);
+        }
+
+        // ✅ Jika sudah login, lanjut
         return $next($request);
     }
 }

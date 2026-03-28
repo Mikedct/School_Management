@@ -4,8 +4,8 @@
         <div class="d-flex justify-content-between align-items-center flex-wrap">
             <!-- Logo & Brand -->
             <div class="d-flex align-items-center mb-2 mb-md-0">
-                <img src="{{ asset('images/logo-UBD.png') }}" 
-                     alt="Logo Univ A" 
+                <img src="{{ asset('images/Logo.png') }}" 
+                     alt="Logo SMAS Perguruan Buddhi" 
                      height="40" 
                      class="me-3"
                      onerror="this.style.display='none'">

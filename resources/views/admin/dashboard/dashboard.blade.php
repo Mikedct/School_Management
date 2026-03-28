@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin Dashboard - Lab Management</title>
+    <title>Admin Dashboard - Student Management</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -85,7 +85,7 @@
             transform: scale(1.1);
         }
 
-        .menu-card.users .menu-icon {
+        .menu-card.students .menu-icon {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
@@ -122,7 +122,7 @@
             font-weight: 600;
         }
 
-        .menu-card.users .menu-badge {
+        .menu-card.students .menu-badge {
             background: rgba(102, 126, 234, 0.1);
             color: #667eea;
         }
@@ -253,49 +253,11 @@
                             <i class="bi bi-people-fill"></i>
                         </div>
                         <div class="stat-content">
-                            <h3>{{ $totalUsers ?? 0 }}</h3>
-                            <p>Total Users</p>
+                            <h3>{{ $totalstudents ?? 0 }}</h3>
+                            <p>Total students</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-card">
-                        <div class="stat-icon success">
-                            <i class="bi bi-calendar-check"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>{{ $totalSchedules ?? 0 }}</h3>
-                            <p>Total Schedules</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-card">
-                        <div class="stat-icon warning">
-                            <i class="bi bi-pc-display"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>{{ $totalComputers ?? 0 }}</h3>
-                            <p>Total PC Lab</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-card">
-                        <div class="stat-icon info">
-                            <i class="bi bi-check-circle"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>{{ $activeComputers ?? 0 }}</h3>
-                            <p>Active PC</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Main Menu Section -->
         <div class="container menu-section">
@@ -307,48 +269,16 @@
             <div class="row g-4">
                 <!-- User Management -->
                 <div class="col-md-4">
-                    <a href="{{ route('admin.users.index') }}" class="menu-card users">
+                    <a href="{{ route('admin.students.index') }}" class="menu-card students">
                         <div class="menu-icon">
                             <i class="bi bi-people-fill"></i>
                         </div>
                         <h5 class="menu-title">User Management</h5>
                         <p class="menu-description">
-                            Manage user data, add, edit, and delete system users.
+                            Manage user data, add, edit, and delete system students.
                         </p>
                         <span class="menu-badge">
-                            <i class="bi bi-person-plus me-1"></i>CRUD Users
-                        </span>
-                    </a>
-                </div>
-
-                <!-- Schedule Management -->
-                <div class="col-md-4">
-                    <a href="{{ route('admin.schedules.index') }}" class="menu-card schedule">
-                        <div class="menu-icon">
-                            <i class="bi bi-calendar-event"></i>
-                        </div>
-                        <h5 class="menu-title">Schedule Lab</h5>
-                        <p class="menu-description">
-                            Set lab usage schedules, reservations, and availability
-                        </p>
-                        <span class="menu-badge">
-                            <i class="bi bi-calendar-plus me-1"></i>CRUD Schedules
-                        </span>
-                    </a>
-                </div>
-
-                <!-- Lab Computer Status -->
-                <div class="col-md-4">
-                    <a href="{{ route('admin.lab.index') }}" class="menu-card lab">
-                        <div class="menu-icon">
-                            <i class="bi bi-pc-display-horizontal"></i>
-                        </div>
-                        <h5 class="menu-title">Lab Monitoring</h5>
-                        <p class="menu-description">
-                            Monitor the condition of lab PCs, their status, specifications, and maintenance
-                        </p>
-                        <span class="menu-badge">
-                            <i class="bi bi-eye me-1"></i>View PC Status
+                            <i class="bi bi-person-plus me-1"></i>CRUD students
                         </span>
                     </a>
                 </div>
@@ -361,7 +291,7 @@
                         </div>
                         <h5 class="menu-title">Report Management</h5>
                         <p class="menu-description">
-                            Managing PC lab malfunctions reported by users
+                            Managing PC lab malfunctions reported by students
                         </p>
                         <span class="menu-badge">
                             <i class="bi bi-flag me-1"></i>Manage Reports
@@ -380,15 +310,9 @@
             
             <div class="row g-3">
                 <div class="col-md-3 col-sm-6">
-                    <a href="{{ route('admin.users.create') }}" class="btn btn-outline-primary w-100 py-3 text-decoration-none">
+                    <a href="{{ route('admin.students.create') }}" class="btn btn-outline-primary w-100 py-3 text-decoration-none">
                         <i class="bi bi-person-plus-fill d-block mb-2" style="font-size: 24px;"></i>
                         Add New User
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="{{ route('admin.schedules.create') }}" class="btn btn-outline-primary w-100 py-3 text-decoration-none">
-                        <i class="bi bi-person-plus-fill d-block mb-2" style="font-size: 24px;"></i>
-                        Create New Schedule
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6">
@@ -411,7 +335,7 @@
     <!-- Footer -->
     <div class="dashboard-footer">
         <div class="container text-center text-muted">
-            <small>© {{ date('Y') }} Univ UBD - Lab Management System. All rights reserved.</small>
+            <small>© {{ date('Y') }} SMA Perguruan Buddhi - Student Management System. All rights reserved.</small>
         </div>
     </div>
 

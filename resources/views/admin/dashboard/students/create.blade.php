@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Edit User - Student Management</title>
+    <title>Add User - Student Management</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -13,6 +13,7 @@
         body {
             background-color: #f8f9fa;
         }
+
 
         .page-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -64,25 +65,6 @@
         .required-mark {
             color: #dc3545;
         }
-
-        .info-box {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .info-box i {
-            color: #667eea;
-            font-size: 18px;
-        }
-
-        .info-box p {
-            margin: 0;
-            font-size: 14px;
-            color: #666;
-        }
     </style>
 </head>
 <body>
@@ -90,12 +72,12 @@
 
     <div class="page-header">
         <div class="container">
-            <h2><i class="bi bi-pencil-square me-2"></i>Edit User</h2>
+            <h2><i class="bi bi-person-plus me-2"></i>Add New User</h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" style="color: rgba(255,255,255,0.8);">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}" style="color: rgba(255,255,255,0.8);">Users</a></li>
-                    <li class="breadcrumb-item active" style="color: white;">Edit User</li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.students.index') }}" style="color: rgba(255,255,255,0.8);">students</a></li>
+                    <li class="breadcrumb-item active" style="color: white;">Add User</li>
                 </ol>
             </nav>
         </div>
@@ -104,15 +86,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="info-box">
-                    <i class="bi bi-info-circle me-2"></i>
-                    <p class="d-inline">Edit user data: <strong>{{ $user->userName }}</strong> (ID: {{ $user->userID }})</p>
-                </div>
-
                 <div class="form-card">
-                    <form action="{{ route('admin.users.update', $user->userID) }}" method="POST">
+                    <form action="{{ route('admin.students.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
                         
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -123,8 +99,8 @@
                                        class="form-control @error('userName') is-invalid @enderror" 
                                        id="userName" 
                                        name="userName" 
-                                       value="{{ old('userName', $user->userName) }}"
-                                       placeholder="Masukkan nama lengkap"
+                                       value="{{ old('userName') }}"
+                                       placeholder="Enter Your Full Name"
                                        required>
                                 @error('userName')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -139,12 +115,41 @@
                                        class="form-control @error('email') is-invalid @enderror" 
                                        id="email" 
                                        name="email" 
-                                       value="{{ old('email', $user->email) }}"
+                                       value="{{ old('email') }}"
                                        placeholder="contoh@email.com"
                                        required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">
+                                    Password <span class="required-mark">*</span>
+                                </label>
+                                <input type="password" 
+                                       class="form-control @error('password') is-invalid @enderror" 
+                                       id="password" 
+                                       name="password"
+                                       placeholder="Minimum 6 Characters"
+                                       required>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="password_confirmation" class="form-label">
+                                    Konfirmasi Password <span class="required-mark">*</span>
+                                </label>
+                                <input type="password" 
+                                       class="form-control" 
+                                       id="password_confirmation" 
+                                       name="password_confirmation"
+                                       placeholder="Repeat Password"
+                                       required>
                             </div>
                         </div>
 
@@ -157,10 +162,10 @@
                                         id="role" 
                                         name="role" 
                                         required>
-                                    <option value="">Choose a Role</option>
-                                    <option value="Mahasiswa" {{ old('role', $user->role) == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
-                                    <option value="Dosen" {{ old('role', $user->role) == 'Dosen' ? 'selected' : '' }}>Dosen</option>
-                                    <option value="Admin" {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="">Pilih Role</option>
+                                    <option value="Murid" {{ old('role') == 'Murid' ? 'selected' : '' }}>Murid</option>
+                                    <option value="Guru" {{ old('role') == 'Guru' ? 'selected' : '' }}>Guru</option>
+                                    <option value="Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
                                 </select>
                                 @error('role')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -175,8 +180,8 @@
                                         id="status" 
                                         name="status" 
                                         required>
-                                    <option value="Active" {{ old('status', $user->status) == 'Active' ? 'selected' : '' }}>Active</option>
-                                    <option value="Inactive" {{ old('status', $user->status) == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                    <option value="Active" {{ old('status') == 'Active' ? 'selected' : '' }}>Active</option>
+                                    <option value="Inactive" {{ old('status') == 'Inactive' ? 'selected' : '' }}>Inactive</option>
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -190,7 +195,7 @@
                                    class="form-control @error('phone') is-invalid @enderror" 
                                    id="phone" 
                                    name="phone" 
-                                   value="{{ old('phone', $user->phone) }}"
+                                   value="{{ old('phone') }}"
                                    placeholder="08xxxxxxxxxx">
                             @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -199,45 +204,12 @@
 
                         <hr class="my-4">
 
-                        <h5 class="mb-3">
-                            <i class="bi bi-key me-2"></i>Change Password (Optional)
-                        </h5>
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>
-                            Leave blank if you do not want to change your password
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="password" class="form-label">New Password</label>
-                                <input type="password" 
-                                       class="form-control @error('password') is-invalid @enderror" 
-                                       id="password" 
-                                       name="password"
-                                       placeholder="Minimum 6 characters">
-                                @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                                <input type="password" 
-                                       class="form-control" 
-                                       id="password_confirmation" 
-                                       name="password_confirmation"
-                                       placeholder="Repeat your new password">
-                            </div>
-                        </div>
-
-                        <hr class="my-4">
-
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.students.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-left me-1"></i> Back
                             </a>
                             <button type="submit" class="btn btn-submit">
-                                <i class="bi bi-save me-1"></i> Update User
+                                <i class="bi bi-save me-1"></i> Save User
                             </button>
                         </div>
                     </form>

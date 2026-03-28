@@ -240,7 +240,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" style="color: rgba(255,255,255,0.8);">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}" style="color: rgba(255,255,255,0.8);">Users</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.students.index') }}" style="color: rgba(255,255,255,0.8);">students</a></li>
                     <li class="breadcrumb-item active" style="color: white;">Detail User</li>
                 </ol>
             </nav>
@@ -362,10 +362,10 @@
 
                         <!-- Action Buttons -->
                         <div class="action-buttons">
-                            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-custom">
+                            <a href="{{ route('admin.students.index') }}" class="btn btn-secondary btn-custom">
                                 <i class="bi bi-arrow-left me-1"></i> Back
                             </a>
-                            <a href="{{ route('admin.users.edit', $user->userID) }}" class="btn btn-edit btn-custom">
+                            <a href="{{ route('admin.students.edit', $user->userID) }}" class="btn btn-edit btn-custom">
                                 <i class="bi bi-pencil me-1"></i> Edit User
                             </a>
                             <button type="button" class="btn btn-delete btn-custom" onclick="confirmDelete()">
@@ -431,7 +431,7 @@
                             </div>
                             <div class="timeline-content">
                                 <h6>Status Active</h6>
-                                <p>Users can access the system</p>
+                                <p>students can access the system</p>
                             </div>
                         </div>
                         @endif
@@ -457,7 +457,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form action="{{ route('admin.users.destroy', $user->userID) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('admin.students.destroy', $user->userID) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
