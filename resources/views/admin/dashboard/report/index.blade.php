@@ -1,5 +1,3 @@
-// Minta GPT ubah menjadi lab
-
 <!-- resources/views/admin/lab/index.blade.php -->
 
 <!DOCTYPE html>

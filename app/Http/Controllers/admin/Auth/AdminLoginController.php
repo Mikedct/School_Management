@@ -24,36 +24,36 @@ class AdminLoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'adminEmail' => 'required|adminEmail',
             'password' => 'required|min:6',
         ], [
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Format email tidak valid',
+            'adminEmail.required' => 'adminEmail wajib diisi',
+            'adminEmail.adminEmail' => 'Format adminEmail tidak valid',
             'password.required' => 'Password wajib diisi',
             'password.min' => 'Password minimal 6 karakter',
         ]);
 
-        // Ambil admin berdasarkan email
-        $admin = DB::table('admin')->where('email', $request->email)->first();
+        // Ambil admin berdasarkan adminEmail
+        $admin = DB::table('admin')->where('adminEmail', $request->adminEmail)->first();
 
         if (!$admin) {
             return back()
-                ->withErrors(['login' => 'Email tidak ditemukan'])
-                ->withInput($request->only('email'));
+                ->withErrors(['login' => 'adminEmail tidak ditemukan'])
+                ->withInput($request->only('adminEmail'));
         }
 
         // Cek password dengan MD5
         if (md5($request->password) !== $admin->password) {
             return back()
                 ->withErrors(['login' => 'Password salah'])
-                ->withInput($request->only('email'));
+                ->withInput($request->only('adminEmail'));
         }
 
         // Simpan session admin
         session([
             'adminID' => $admin->adminID,
             'adminName' => $admin->adminName,
-            'adminEmail' => $admin->email,
+            'adminEmail' => $admin->adminEmail,
             'isLoggedIn' => true,
         ]);
 

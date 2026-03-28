@@ -269,8 +269,10 @@
 <body>
 
 <div class="login-container">
+    <!-- Left Section - Branding with Animation -->
     <div class="left-section">
         <div class="logo-container">
+            <!-- Ganti dengan logo universitas Anda -->
             <img src="{{ asset('./images/Logo.png') }}" alt="Logo SMAS Perguruan Buddhi" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size:48px;font-weight:bold;color:#b72024\'>UBD</div>'">
         </div>
         
@@ -330,13 +332,13 @@
             @csrf
             
             <div class="form-group">
-                <label for="email">Email / Username</label>
+                <label for="adminEmail">Email / Username</label>
                 <div class="input-wrapper">
                     <span class="input-icon icon-user"></span>
                     <input type="text" 
-                           id="email" 
-                           name="email" 
-                           placeholder="Enter your email or username" 
+                           id="adminEmail" 
+                           name="adminEmail" 
+                           placeholder="Enter your Email or username" 
                            required 
                            autofocus>
                 </div>

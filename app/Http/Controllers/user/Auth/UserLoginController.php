@@ -33,7 +33,7 @@ class UserAuthController extends Controller
         ]);
 
         // Ambil user berdasarkan email
-        $user = DB::table('users')->where('email', $request->email)->first();
+        $user = DB::table('user')->where('email', $request->email)->first();
 
         if (!$user) {
             return back()
