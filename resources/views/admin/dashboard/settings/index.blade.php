@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Account Setting - School Management</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -42,14 +43,16 @@
             margin-bottom: 8px;
         }
 
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: #b72024;
             box-shadow: 0 0 0 0.2rem rgba(183, 32, 36, 0.15);
         }
@@ -117,6 +120,7 @@
         }
     </style>
 </head>
+
 <body>
     @include('layouts.partials.admin-navbar')
 
@@ -137,22 +141,22 @@
             <div class="col-lg-8">
                 <!-- Success/Error Messages -->
                 @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
                 @endif
 
                 @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>There is an error:</strong>
-                        <ul class="mb-0 mt-2">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>There is an error:</strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
                 @endif
 
                 <!-- Profile Info -->
@@ -170,24 +174,24 @@
                 <!-- Edit Profile -->
                 <div class="settings-card">
                     <h5><i class="bi bi-person-circle me-2"></i>Edit Profile</h5>
-                    
+
                     <form action="{{ route('admin.settings.update-profile') }}" method="POST">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="adminName" class="form-label">
                                     Full Name <span class="required-mark">*</span>
                                 </label>
-                                <input type="text" 
-                                       class="form-control @error('adminName') is-invalid @enderror" 
-                                       id="adminName" 
-                                       name="adminName" 
-                                       value="{{ old('adminName', $admin->adminName) }}"
-                                       required>
+                                <input type="text"
+                                    class="form-control @error('adminName') is-invalid @enderror"
+                                    id="adminName"
+                                    name="adminName"
+                                    value="{{ old('adminName', $admin->adminName) }}"
+                                    required>
                                 @error('adminName')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -195,27 +199,27 @@
                                 <label for="email" class="form-label">
                                     Email <span class="required-mark">*</span>
                                 </label>
-                                <input type="email" 
-                                       class="form-control @error('email') is-invalid @enderror" 
-                                       id="email" 
-                                       name="adminEmail" 
-                                       value="{{ old('adminEmail', $admin->adminEmail) }}"
-                                       required>
+                                <input type="email"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    id="email"
+                                    name="adminEmail"
+                                    value="{{ old('adminEmail', $admin->adminEmail) }}"
+                                    required>
                                 @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="col-md-12 mb-3">
                                 <label for="phoneNumber" class="form-label">Phone Number</label>
-                                <input type="text" 
-                                       class="form-control @error('phoneNumber') is-invalid @enderror" 
-                                       id="phoneNumber" 
-                                       name="phoneNumber" 
-                                       value="{{ old('phoneNumber', $admin->phoneNumber ?? '') }}"
-                                       placeholder="08xxxxxxxxxx">
+                                <input type="text"
+                                    class="form-control @error('phoneNumber') is-invalid @enderror"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
+                                    value="{{ old('phoneNumber', $admin->phoneNumber ?? '') }}"
+                                    placeholder="08xxxxxxxxxx">
                                 @error('phoneNumber')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -234,7 +238,7 @@
                 <!-- Change Password -->
                 <div class="settings-card">
                     <h5><i class="bi bi-key me-2"></i>Change Password</h5>
-                    
+
                     <div class="info-box">
                         <i class="bi bi-info-circle me-2"></i>
                         <span>Passwords must be at least 6 characters long for your account security.</span>
@@ -243,20 +247,20 @@
                     <form action="{{ route('admin.settings.update-password') }}" method="POST">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="current_password" class="form-label">
                                     Old Password <span class="required-mark">*</span>
                                 </label>
-                                <input type="password" 
-                                       class="form-control @error('current_password') is-invalid @enderror" 
-                                       id="current_password" 
-                                       name="current_password" 
-                                       placeholder="Enter your old password"
-                                       required>
+                                <input type="password"
+                                    class="form-control @error('current_password') is-invalid @enderror"
+                                    id="current_password"
+                                    name="current_password"
+                                    placeholder="Enter your old password"
+                                    required>
                                 @error('current_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -264,14 +268,14 @@
                                 <label for="new_password" class="form-label">
                                     New Password <span class="required-mark">*</span>
                                 </label>
-                                <input type="password" 
-                                       class="form-control @error('new_password') is-invalid @enderror" 
-                                       id="new_password" 
-                                       name="new_password" 
-                                       placeholder="Minimum 6 characters"
-                                       required>
+                                <input type="password"
+                                    class="form-control @error('new_password') is-invalid @enderror"
+                                    id="new_password"
+                                    name="new_password"
+                                    placeholder="Minimum 6 characters"
+                                    required>
                                 @error('new_password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -279,12 +283,12 @@
                                 <label for="new_password_confirmation" class="form-label">
                                     Confirm New Password <span class="required-mark">*</span>
                                 </label>
-                                <input type="password" 
-                                       class="form-control" 
-                                       id="new_password_confirmation" 
-                                       name="new_password_confirmation" 
-                                       placeholder="Repeat the new password"
-                                       required>
+                                <input type="password"
+                                    class="form-control"
+                                    id="new_password_confirmation"
+                                    name="new_password_confirmation"
+                                    placeholder="Repeat the new password"
+                                    required>
                             </div>
                         </div>
 
@@ -299,7 +303,7 @@
                 <!-- Account Info -->
                 <div class="settings-card">
                     <h5><i class="bi bi-info-circle me-2"></i>Account Information</h5>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <p class="mb-1"><strong>Admin ID:</strong></p>
@@ -317,4 +321,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
