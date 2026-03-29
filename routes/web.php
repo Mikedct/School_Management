@@ -1,46 +1,47 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\StudentsController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\SettingsController;
 
-use App\Http\Controllers\user\Auth\UserAuthController;
-
-// Redirect root ke user login
+// Redirect root ke login admin
 Route::get('/', function () {
     return redirect()->route('admin.auth.login');
 });
 
-// ============================================
-// ADMIN AUTH ROUTES
-// ============================================
+// =============================
+// ADMIN AUTH
+// =============================
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('auth.login');
     Route::post('login', [AdminLoginController::class, 'login'])->name('login.post');
 });
 
-// ============================================
-// PROTECTED ADMIN ROUTES (Dengan Middleware)
-// ============================================
-Route::middleware(['admin.auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('dashboard', function () {
-        return view('admin.dashboard.dashboard');
-    })->name('dashboard'); 
+// =============================
+// PROTECTED ADMIN
+// =============================
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware('admin.auth')
+    ->group(function () {
 
+        Route::get('dashboard', function () {
+            return view('admin.dashboard.dashboard');
+        })->name('dashboard');
 
+        // Students
+        Route::resource('students', StudentsController::class);
 
+        // Reports
+        Route::resource('reports', ReportController::class);
 
-    // Logout
-    Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
+        // ✅ SETTINGS
+        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+        Route::put('settings/update-profile', [SettingsController::class, 'updateProfile'])->name('settings.update-profile');
+        Route::put('settings/update-password', [SettingsController::class, 'updatePassword'])->name('settings.update-password');
 
-    // User Management (uncomment when ready)
-    // Route::resource('users', UserController::class);
-
-    // Schedule Management (uncomment when ready)
-    // Route::resource('schedules', ScheduleController::class);
-
-    // Lab Monitoring (uncomment when ready)
-    // Route::get('lab/status', [AdminLabController::class, 'status'])->name('lab.status');
-
-    // Route::get('lab', [AdminLabController::class, 'index'])->name('lab.index');
-});
+        // Logout
+        Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
+    });
