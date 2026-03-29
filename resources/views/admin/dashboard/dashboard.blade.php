@@ -98,7 +98,7 @@
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
-        .menu-card.reports .menu-icon {
+        .menu-card.report .menu-icon {
             background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
         }
 
@@ -138,7 +138,7 @@
             color: #4facfe;
         }
 
-        .menu-card.reports .menu-badge {
+        .menu-card.report .menu-badge {
             background: rgba(79, 172, 254, 0.1);
             color: #ff6a00;
         }
@@ -298,18 +298,18 @@
                     </a>
                 </div>
 
-                <!-- reports Management -->
+                <!-- report Management -->
                 <div class="col-md-4">
-                    <a href="{{ route('admin.reports.index') }}" class="menu-card reports">
+                    <a href="{{ route('admin.report.index') }}" class="menu-card report">
                         <div class="menu-icon">
                             <i class="bi bi-flag-fill"></i>
                         </div>
-                        <h5 class="menu-title">reports Management</h5>
+                        <h5 class="menu-title">report Management</h5>
                         <p class="menu-description">
-                            Managing PC lab malfunctions reportsed by students
+                            Managing PC lab malfunctions reported by students
                         </p>
                         <span class="menu-badge">
-                            <i class="bi bi-flag me-1"></i>Manage reports
+                            <i class="bi bi-flag me-1"></i>Manage report
                         </span>
                     </a>
                 </div>
@@ -331,9 +331,9 @@
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <a href="{{ route('admin.reports.index') }}" class="btn btn-outline-info w-100 py-3 text-decoration-none">
+                    <a href="{{ route('admin.report.index') }}" class="btn btn-outline-info w-100 py-3 text-decoration-none">
                         <i class="bi bi-file-earmark-text-fill d-block mb-2" style="font-size: 24px;"></i>
-                        See reports
+                        See report
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6">

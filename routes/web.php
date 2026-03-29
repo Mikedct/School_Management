@@ -34,10 +34,17 @@ Route::prefix('admin')
         // Students
         Route::resource('students', StudentsController::class);
 
-        // Reports
-        Route::resource('reports', ReportController::class);
+        // Report
+        Route::resource('report', ReportController::class);
 
-        // ✅ SETTINGS
+        // ✅ TAMBAHAN REPORT
+        Route::post('report/{id}/status', [ReportController::class, 'updateStatus'])
+            ->name('report.updateStatus');
+
+        Route::get('report/{id}/bukti', [ReportController::class, 'viewBukti'])
+            ->name('report.viewBukti');
+
+        // Settings
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::put('settings/update-profile', [SettingsController::class, 'updateProfile'])->name('settings.update-profile');
         Route::put('settings/update-password', [SettingsController::class, 'updatePassword'])->name('settings.update-password');
