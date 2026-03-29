@@ -293,19 +293,19 @@
         <div class="container mb-5">
             <!-- Success/Error Messages -->
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle me-2"></i>
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-2"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-triangle me-2"></i>
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
             @endif
 
             <div class="table-card">
@@ -328,87 +328,57 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Lab</th>
-                                    <th>Computer</th>
-                                    <th>Status</th>
-                                    <th>Appendix</th>
-                                    <th>Date</th>
+                                    <th>Nama</th>
+                                    <th>Kelas</th>
+                                    <th>Keterangan</th>
+                                    <th>Alasan</th>
+                                    <th>Bukti</th>
+                                    <th>Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($reports as $index => $report)
-                                    <tr>
-                                        <td class="text-center">{{ $index + 1 }}</td>
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
 
-                                        <td>{{ $report->title }}</td>
+                                    <td>{{ $report->userName }}</td>
 
-                                        <td>{{ Str::limit($report->description, 50) }}</td>
+                                    <td>{{ $report->kelas }}</td>
 
-                                        <td>
-                                            <span class="badge bg-info">
-                                                {{ $report->labName }}
-                                            </span>
-                                        </td>
+                                    <td>{{ $report->keterangan }}</td>
 
-                                        <td>{{ $report->computerName }}</td>
+                                    <td>{{ $report->alasan }}</td>
 
-                                        <td class="text-center">
-                                            @if($report->status == 'new')
-                                                <span class="badge bg-danger">New</span>
-                                            @elseif($report->status == 'in_progress')
-                                                <span class="badge bg-warning text-dark">In Process</span>
-                                            @elseif($report->status == 'done')
-                                                <span class="badge bg-success">Done</span>
-                                            @else
-                                                <span class="badge bg-dark">{{ $report->status }}</span>
-                                            @endif
-                                        </td>
+                                    <td>
+                                        @if($report->bukti)
+                                        <img src="{{ asset('storage/' . $report->bukti) }}" width="80">
+                                        @else
+                                        <span class="text-muted">No Image</span>
+                                        @endif
+                                    </td>
 
-                                        <td>
-                                            @if($report->attachment)
-                                                <a href="{{ route('admin.reports.attachment', $report->reportID) }}"
-                                                    target="_blank" class="btn btn-sm btn-outline-primary">
-                                                    <i class="bi bi-eye"></i> Preview
-                                                </a>
-                                            @else
-                                                <span class="text-muted">Not Available</span>
-                                            @endif
-                                        </td>
+                                    <td>{{ $report->tanggal }}</td>
 
+                                    <td>
+                                        <a href="{{ route('admin.reports.show', $report->reportID) }}" class="btn btn-sm btn-info">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
 
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($report->created_at)->format('d M Y') }}
-                                        </td>
+                                        <form action="{{ route('admin.reports.destroy', $report->reportID) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <td class="d-flex gap-2">
-                                            <a href="{{ route('admin.reports.show', $report->reportID) }}"
-                                                class="btn btn-sm btn-info">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-
-                                            <form action="{{ route('admin.reports.destroy', $report->reportID) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Are you sure you want to delete the report?')">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-
-                                        </td>
-
-                                    </tr>
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="9" class="text-center text-muted">
-                                            No reports of disruption yet
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="8" class="text-center">Tidak ada laporan</td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>

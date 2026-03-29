@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Dashboard - Student Management</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -97,8 +98,8 @@
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
-        .menu-card.report .menu-icon { 
-            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%); 
+        .menu-card.reports .menu-icon {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
         }
 
         .menu-title {
@@ -137,7 +138,7 @@
             color: #4facfe;
         }
 
-        .menu-card.report .menu-badge {
+        .menu-card.reports .menu-badge {
             background: rgba(79, 172, 254, 0.1);
             color: #ff6a00;
         }
@@ -173,10 +174,21 @@
             margin-right: 20px;
         }
 
-        .stat-icon.primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .stat-icon.success { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .stat-icon.warning { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .stat-icon.info { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .stat-icon.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-icon.success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-icon.warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-icon.info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
 
         .stat-content h3 {
             font-size: 32px;
@@ -210,6 +222,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Include Navbar -->
     @include('layouts.partials.admin-navbar')
@@ -254,10 +267,12 @@
                         </div>
                         <div class="stat-content">
                             <h3>{{ $totalstudents ?? 0 }}</h3>
-                            <p>Total students</p>
+                            <p>Total Students</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
         <!-- Main Menu Section -->
         <div class="container menu-section">
@@ -283,18 +298,18 @@
                     </a>
                 </div>
 
-                <!-- Report Management -->
+                <!-- reports Management -->
                 <div class="col-md-4">
-                    <a href="{{ route('admin.reports.index') }}" class="menu-card report">
+                    <a href="{{ route('admin.reports.index') }}" class="menu-card reports">
                         <div class="menu-icon">
                             <i class="bi bi-flag-fill"></i>
                         </div>
-                        <h5 class="menu-title">Report Management</h5>
+                        <h5 class="menu-title">reports Management</h5>
                         <p class="menu-description">
-                            Managing PC lab malfunctions reported by students
+                            Managing PC lab malfunctions reportsed by students
                         </p>
                         <span class="menu-badge">
-                            <i class="bi bi-flag me-1"></i>Manage Reports
+                            <i class="bi bi-flag me-1"></i>Manage reports
                         </span>
                     </a>
                 </div>
@@ -307,7 +322,7 @@
                 <i class="bi bi-lightning-fill me-2" style="color: #b72024;"></i>
                 Quick Actions
             </h4>
-            
+
             <div class="row g-3">
                 <div class="col-md-3 col-sm-6">
                     <a href="{{ route('admin.students.create') }}" class="btn btn-outline-primary w-100 py-3 text-decoration-none">
@@ -318,14 +333,13 @@
                 <div class="col-md-3 col-sm-6">
                     <a href="{{ route('admin.reports.index') }}" class="btn btn-outline-info w-100 py-3 text-decoration-none">
                         <i class="bi bi-file-earmark-text-fill d-block mb-2" style="font-size: 24px;"></i>
-                        See Reports
+                        See reports
                     </a>
-                    </button>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <a href="{{ route('admin.settings.index') }}" class="btn btn-outline-warning w-100 py-3 text-decoration-none">
-                    <i class="bi bi-gear-fill d-block mb-2" style="font-size: 24px;"></i>
-                    Settings
+                        <i class="bi bi-gear-fill d-block mb-2" style="font-size: 24px;"></i>
+                        Settings
                     </a>
                 </div>
             </div>
@@ -341,7 +355,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         // Update current time
         function updateTime() {
@@ -351,9 +365,10 @@
             const seconds = String(now.getSeconds()).padStart(2, '0');
             document.getElementById('current-time').textContent = `${hours}:${minutes}:${seconds}`;
         }
-        
+
         updateTime();
         setInterval(updateTime, 1000);
     </script>
 </body>
+
 </html>

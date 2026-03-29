@@ -198,8 +198,8 @@
                                 <input type="email" 
                                        class="form-control @error('email') is-invalid @enderror" 
                                        id="email" 
-                                       name="email" 
-                                       value="{{ old('email', $admin->email) }}"
+                                       name="adminEmail" 
+                                       value="{{ old('adminEmail', $admin->adminEmail) }}"
                                        required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
