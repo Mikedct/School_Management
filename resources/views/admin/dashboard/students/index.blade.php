@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>User Management - Student Management</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -85,9 +86,17 @@
             margin-right: 15px;
         }
 
-        .stat-icon-small.purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .stat-icon-small.green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .stat-icon-small.red { background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%); }
+        .stat-icon-small.purple {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-icon-small.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-icon-small.red {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        }
 
         .stat-content-small h4 {
             font-size: 24px;
@@ -243,6 +252,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Include Navbar -->
     @include('layouts.partials.admin-navbar')
@@ -285,7 +295,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div class="stat-content-small">
-                            <h4>{{ $totalstudents }}</h4>
+                            <h4>{{ $totalStudents }}</h4>
                             <p>Total students</p>
                         </div>
                     </div>
@@ -296,7 +306,7 @@
                             <i class="bi bi-check-circle"></i>
                         </div>
                         <div class="stat-content-small">
-                            <h4>{{ $activestudents }}</h4>
+                            <h4>{{ $activeStudents }}</h4>
                             <p>Active students</p>
                         </div>
                     </div>
@@ -307,7 +317,7 @@
                             <i class="bi bi-x-circle"></i>
                         </div>
                         <div class="stat-content-small">
-                            <h4>{{ $inactivestudents }}</h4>
+                            <h4>{{ $inactiveStudents }}</h4>
                             <p>Inactive students</p>
                         </div>
                     </div>
@@ -319,19 +329,19 @@
         <div class="container mb-5">
             <!-- Success/Error Messages -->
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle me-2"></i>
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-2"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-triangle me-2"></i>
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
             @endif
 
             <div class="table-card">
@@ -380,46 +390,48 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->userEmail }}</td>
                                     <td>
                                         @if($user->role == 'Admin')
-                                            <span class="badge bg-danger">
-                                                <i class="bi bi-shield-check me-1"></i>{{ $user->role }}
-                                            </span>
+                                        <span class="badge bg-danger">
+                                            <i class="bi bi-shield-check me-1"></i>{{ $user->role }}
+                                        </span>
                                         @elseif($user->role == 'Dosen')
-                                            <span class="badge bg-primary">
-                                                <i class="bi bi-mortarboard me-1"></i>{{ $user->role }}
-                                            </span>
+                                        <span class="badge bg-primary">
+                                            <i class="bi bi-mortarboard me-1"></i>{{ $user->role }}
+                                        </span>
                                         @else
-                                            <span class="badge bg-info">
-                                                <i class="bi bi-person me-1"></i>{{ $user->role }}
-                                            </span>
+                                        <span class="badge bg-info">
+                                            <i class="bi bi-person me-1"></i>{{ $user->role }}
+                                        </span>
                                         @endif
                                     </td>
                                     <td>
                                         @if($user->status == 'Active')
-                                            <span class="badge bg-success">Active</span>
+                                        <span class="badge bg-success">Active</span>
                                         @else
-                                            <span class="badge bg-secondary">Inactive</span>
+                                        <span class="badge bg-secondary">Inactive</span>
                                         @endif
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}
+                                    </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ route('admin.students.show', $user->userID) }}" 
-                                               class="btn btn-outline-info btn-action" 
-                                               title="Detail">
+                                            <a href="{{ route('admin.students.show', $user->userID) }}"
+                                                class="btn btn-outline-info btn-action"
+                                                title="Detail">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="{{ route('admin.students.edit', $user->userID) }}" 
-                                               class="btn btn-outline-warning btn-action" 
-                                               title="Edit">
+                                            <a href="{{ route('admin.students.edit', $user->userID) }}"
+                                                class="btn btn-outline-warning btn-action"
+                                                title="Edit">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <button type="button" 
-                                                    class="btn btn-outline-danger btn-action" 
-                                                    title="Hapus"
-                                                    onclick="confirmDelete({{ $user->userID }}, '{{ $user->userName }}')">
+                                            <button type="button"
+                                                class="btn btn-outline-danger btn-action"
+                                                title="Hapus"
+                                                onclick="confirmDelete({{ $user->userID }}, '{{ $user->userName }}')">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </div>
@@ -477,13 +489,13 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         // Search functionality
         document.getElementById('searchInput').addEventListener('keyup', function() {
             const searchValue = this.value.toLowerCase();
             const tableRows = document.querySelectorAll('#studentsTable tbody tr');
-            
+
             tableRows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(searchValue) ? '' : 'none';
@@ -494,10 +506,11 @@
         function confirmDelete(userId, userName) {
             document.getElementById('deleteUserName').textContent = userName;
             document.getElementById('deleteForm').action = `/admin/students/${userId}`;
-            
+
             const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
             deleteModal.show();
         }
     </script>
 </body>
+
 </html>
