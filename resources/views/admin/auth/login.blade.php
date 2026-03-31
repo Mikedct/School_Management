@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #b72024 0%, #8a1519 100%);
+            background: linear-gradient(135deg, #00c4ff 0%, #8a1519 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -36,7 +36,7 @@
         /* Left Section - Branding */
         .left-section {
             flex: 1;
-            background: linear-gradient(135deg, #b72024 0%, #d32f2f 100%);
+            background: linear-gradient(135deg, #00c4ff 0%, #d32f2f 100%);
             padding: 60px 40px;
             display: flex;
             flex-direction: column;
@@ -202,14 +202,14 @@
 
         input[type="text"]:focus,
         input[type="password"]:focus {
-            border-color: #b72024;
+            border-color: #00c4ff;
             box-shadow: 0 0 0 4px rgba(183, 32, 36, 0.1);
         }
 
         button[type="submit"] {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #b72024 0%, #d32f2f 100%);
+            background: linear-gradient(135deg, #00c4ff 0%, #d32f2f 100%);
             color: #ffffff;
             border: none;
             border-radius: 10px;
@@ -273,7 +273,7 @@
     <div class="left-section">
         <div class="logo-container">
             <!-- Ganti dengan logo universitas Anda -->
-            <img src="{{ asset('./images/Logo.png') }}" alt="Logo SMAS Perguruan Buddhi" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size:48px;font-weight:bold;color:#b72024\'>UBD</div>'">
+            <img src="{{ asset('./images/Logo.png') }}" alt="Logo SMAS Perguruan Buddhi" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size:48px;font-weight:bold;color:#00c4ff\'>UBD</div>'">
         </div>
         
         <h1 class="School-name">SMAS Perguruan Buddhi</h1>
@@ -289,13 +289,13 @@
                 <rect x="55" y="65" width="90" height="55" fill="#e3f2fd"/>
                 
                 <!-- Screen Content - Animated Lines -->
-                <line x1="65" y1="75" x2="135" y2="75" stroke="#b72024" stroke-width="2">
+                <line x1="65" y1="75" x2="135" y2="75" stroke="#00c4ff" stroke-width="2">
                     <animate attributeName="x2" values="65;135;65" dur="3s" repeatCount="indefinite"/>
                 </line>
-                <line x1="65" y1="85" x2="120" y2="85" stroke="#b72024" stroke-width="2">
+                <line x1="65" y1="85" x2="120" y2="85" stroke="#00c4ff" stroke-width="2">
                     <animate attributeName="x2" values="65;120;65" dur="3.5s" repeatCount="indefinite"/>
                 </line>
-                <line x1="65" y1="95" x2="130" y2="95" stroke="#b72024" stroke-width="2">
+                <line x1="65" y1="95" x2="130" y2="95" stroke="#00c4ff" stroke-width="2">
                     <animate attributeName="x2" values="65;130;65" dur="2.8s" repeatCount="indefinite"/>
                 </line>
                 
@@ -332,7 +332,7 @@
             @csrf
             
             <div class="form-group">
-                <label for="adminEmail">Email / Username</label>
+                <label for="adminEmail">Email</label>
                 <div class="input-wrapper">
                     <span class="input-icon icon-user"></span>
                     <input type="text" 
