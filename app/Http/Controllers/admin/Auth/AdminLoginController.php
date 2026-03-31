@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +21,6 @@ class AdminLoginController extends Controller
     // Proses login
     public function login(Request $request)
     {
-        // ✅ VALIDASI (FIXED)
         $request->validate([
             'adminEmail' => 'required|email',
             'password' => 'required|min:6',
@@ -44,7 +43,6 @@ class AdminLoginController extends Controller
                 ->withInput($request->only('adminEmail'));
         }
 
-        // ✅ HASH MD5 (DIRAPIKAN)
         $inputPassword = md5($request->password);
 
         if ($inputPassword !== $admin->password) {

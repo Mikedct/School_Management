@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -9,188 +9,118 @@ use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
+    // =========================
+    // LIST DATA
+    // =========================
     public function index()
     {
-
-        $reports = DB::table('reports')
-            ->join('komputer', 'reports.computerID', '=', 'komputer.computerID')
-            ->join('labPC', 'komputer.labID', '=', 'labPC.labID')
-            ->select(
-                'reports.*',
-                'komputer.computerName',   // contoh field di komputer
-                'labPC.labName'             // field yang ingin ditambahkan
-            )
-            ->orderBy('reports.updated_at')
+        $report = DB::table('report')
+            ->orderBy('tanggal', 'desc')
             ->get();
 
-        $statusNew = DB::table('reports')
-            ->where('status', 'new')
-            ->count();
-        $statusInProgress = DB::table('reports')
-            ->where('status', 'in_progress')
-            ->count();
-        $statusDone = DB::table('reports')
-            ->where('status', 'done')
-            ->count();
+        // Statistik
+        $statusPending = DB::table('report')->where('status', 'pending')->count();
+        $statusApproved = DB::table('report')->where('status', 'approved')->count();
+        $statusRejected = DB::table('report')->where('status', 'rejected')->count();
 
-
-        return view('admin.dashboard.report.index', compact('reports', 'statusNew', 'statusInProgress', 'statusDone'));
-
-
+        return view('admin.dashboard.report.index', compact(
+            'report',
+            'statusPending',
+            'statusApproved',
+            'statusRejected'
+        ));
     }
 
+    // =========================
+    // DETAIL
+    // =========================
     public function show($id)
     {
-        $report = DB::table('reports')
-            ->join('komputer', 'reports.computerID', '=', 'komputer.computerID')
-            ->join('labPC', 'komputer.labID', '=', 'labPC.labID')
-            ->select(
-                'reports.*',
-                'komputer.computerName',
-                'labPC.labName'
-            )
-            ->where('reports.reportID', $id)
+        $report = DB::table('report')
+            ->where('reportID', $id)
             ->first();
 
         if (!$report) {
-            return redirect()->route('admin.reports.index')
+            return redirect()->route('admin.report.index')
                 ->with('error', 'Laporan tidak ditemukan');
         }
 
         return view('admin.dashboard.report.show', compact('report'));
     }
 
-
-    public function edit($id)
-    {
-        $report = DB::table('reports')
-            ->join('komputer', 'reports.computerID', '=', 'komputer.computerID')
-            ->join('labPC', 'komputer.labID', '=', 'labPC.labID')
-            ->select(
-                'reports.*',
-                'komputer.computerName',
-                'labPC.labName',
-                'labPC.labID'
-            )
-            ->where('reports.reportID', $id)
-            ->first();
-
-        if (!$report) {
-            abort(404);
-        }
-
-        $labs = DB::table('labPC')->get();
-        $computersByLab = DB::table('komputer')
-            ->select('computerID', 'computerName', 'labID')
-            ->get()
-            ->groupBy('labID');
-
-        return view('admin.dashboard.report.edit', compact('report', 'labs', 'computersByLab'));
-    }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'lab_id' => 'required',
-    //         'computer_id' => 'required',
-    //         'title' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //         'attachment' => 'nullable|image|max:2048',
-    //         'status' => 'required|string', // admin bisa ubah status
-    //     ]);
-
-    //     $path = null;
-    //     if ($request->hasFile('attachment')) {
-    //         $path = $request->file('attachment')->store('reports', 'public');
-    //     }
-
-    //     DB::table('reports')
-    //         ->where('reportID', $id)
-    //         ->update([
-    //             'computerID' => $request->computer_id,
-    //             'title' => $request->title,
-    //             'description' => $request->description,
-    //             'attachment' => $path ?? DB::raw('attachment'),
-    //             'status' => $request->status,
-    //             'updated_at' => now(),
-    //         ]);
-
-    //     return redirect()
-    //         ->route('admin.reports.index')
-    //         ->with('success', 'Laporan berhasil diperbarui oleh admin.');
-    // }
-
+    // =========================
+    // UPDATE STATUS (APPROVE / REJECT)
+    // =========================
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:new,in_progress,done'
+            'status' => 'required|in:pending,approved,rejected'
         ]);
 
-        $report = DB::table('reports')
-            ->where('reportID', $id)
-            ->first();
+        $report = DB::table('report')->where('reportID', $id)->first();
 
         if (!$report) {
-            return redirect()->route('admin.reports.index')
+            return redirect()->route('admin.report.index')
                 ->with('error', 'Laporan tidak ditemukan');
         }
 
-        DB::table('reports')
+        DB::table('report')
             ->where('reportID', $id)
             ->update([
-                'status' => $request->status,
-                'updated_at' => now()
+                'status' => $request->status
             ]);
 
-        return redirect()->route('admin.reports.show', $id)
-            ->with('success', 'Status laporan berhasil diperbarui');
+        return redirect()->route('admin.report.show', $id)
+            ->with('success', 'Status berhasil diperbarui');
     }
 
-
+    // =========================
+    // DELETE
+    // =========================
     public function destroy($id)
     {
-        $report = DB::table('reports')->where('reportID', $id)->first();
+        $report = DB::table('report')->where('reportID', $id)->first();
 
         if (!$report) {
             abort(404);
         }
 
-        DB::table('reports')->where('reportID', $id)->delete();
+        // hapus file bukti jika ada
+        if ($report->bukti && Storage::disk('public')->exists($report->bukti)) {
+            Storage::disk('public')->delete($report->bukti);
+        }
 
-        return redirect()
-            ->route('admin.reports.index')
-            ->with('success', 'Laporan berhasil dihapus.');
+        DB::table('report')->where('reportID', $id)->delete();
+
+        return redirect()->route('admin.report.index')
+            ->with('success', 'Laporan berhasil dihapus');
     }
 
-    public function viewAttachment($id)
+    // =========================
+    // VIEW BUKTI (IMAGE ONLY)
+    // =========================
+    public function viewBukti($id)
     {
-        $report = DB::table('reports')->where('reportID', $id)->first();
+        $report = DB::table('report')->where('reportID', $id)->first();
 
-        if (!$report || !$report->attachment) {
-            return redirect()->back()
-                ->with('error', 'Lampiran tidak ditemukan');
+        if (!$report || !$report->bukti) {
+            return back()->with('error', 'Bukti tidak ditemukan');
         }
 
-        $path = $report->attachment;
+        $path = $report->bukti;
 
         if (!Storage::disk('public')->exists($path)) {
-            return redirect()->back()
-                ->with('error', 'File lampiran tidak tersedia');
+            return back()->with('error', 'File tidak tersedia');
         }
 
-        // cek ekstensi file
-        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        // validasi file gambar
+        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
-        $imageExt = ['jpg', 'jpeg', 'png', 'webp'];
-
-        if (in_array($extension, $imageExt)) {
-            // PREVIEW GAMBAR
-            return response()->file(
-                storage_path('app/public/' . $path)
-            );
+        if (!in_array($ext, $allowed)) {
+            return back()->with('error', 'File bukan gambar');
         }
 
-        return redirect()->back()
-            ->with('error', 'Lampiran bukan file gambar');
+        return response()->file(storage_path('app/public/' . $path));
     }
 }
