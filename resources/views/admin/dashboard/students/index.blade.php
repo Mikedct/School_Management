@@ -369,7 +369,6 @@
                                     <th>No</th>
                                     <th>User</th>
                                     <th>Email</th>
-                                    <th>Role</th>
                                     <th>Status</th>
                                     <th>Joined</th>
                                     <th class="text-center">Aksi</th>
@@ -391,21 +390,6 @@
                                         </div>
                                     </td>
                                     <td>{{ $user->userEmail }}</td>
-                                    <td>
-                                        @if($user->role == 'Admin')
-                                        <span class="badge bg-danger">
-                                            <i class="bi bi-shield-check me-1"></i>{{ $user->role }}
-                                        </span>
-                                        @elseif($user->role == 'Dosen')
-                                        <span class="badge bg-primary">
-                                            <i class="bi bi-mortarboard me-1"></i>{{ $user->role }}
-                                        </span>
-                                        @else
-                                        <span class="badge bg-info">
-                                            <i class="bi bi-person me-1"></i>{{ $user->role }}
-                                        </span>
-                                        @endif
-                                    </td>
                                     <td>
                                         @if($user->status == 'Active')
                                         <span class="badge bg-success">Active</span>

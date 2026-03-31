@@ -108,12 +108,12 @@
             color: white;
         }
 
-        .badge-role-dosen {
+        .badge-role-guru {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
-        .badge-role-mahasiswa {
+        .badge-role-siswa {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
         }
@@ -258,10 +258,10 @@
                     <div class="card-body-custom">
                         <!-- Avatar & Name -->
                         <div class="user-avatar-large">
-                            {{ strtoupper(substr($user->userName, 0, 1)) }}
+                            {{ strtoupper(substr($student->userName, 0, 1)) }}
                         </div>
-                        <h3 class="user-name">{{ $user->userName }}</h3>
-                        <p class="user-email"><i class="bi bi-envelope me-2"></i>{{ $user->email }}</p>
+                        <h3 class="user-name">{{ $student->userName }}</h3>
+                        <p class="user-email"><i class="bi bi-envelope me-2"></i>{{ $student->userEmail }}</p>
 
                         <!-- User Details -->
                         <div class="mt-4">
@@ -270,7 +270,7 @@
                                     <i class="bi bi-hash me-2"></i>User ID
                                 </div>
                                 <div class="info-value">
-                                    <strong>{{ $user->userID }}</strong>
+                                    <strong>{{ $student->userID }}</strong>
                                 </div>
                             </div>
 
@@ -279,7 +279,7 @@
                                     <i class="bi bi-person me-2"></i>Full Name
                                 </div>
                                 <div class="info-value">
-                                    {{ $user->userName }}
+                                    {{ $student->userName }}
                                 </div>
                             </div>
 
@@ -288,7 +288,7 @@
                                     <i class="bi bi-envelope me-2"></i>Email
                                 </div>
                                 <div class="info-value">
-                                    {{ $user->email }}
+                                    {{ $student->userEmail }}
                                 </div>
                             </div>
 
@@ -297,28 +297,7 @@
                                     <i class="bi bi-telephone me-2"></i>Phone Number
                                 </div>
                                 <div class="info-value">
-                                    {{ $user->phone ?? '-' }}
-                                </div>
-                            </div>
-
-                            <div class="info-row">
-                                <div class="info-label">
-                                    <i class="bi bi-shield-check me-2"></i>Role
-                                </div>
-                                <div class="info-value">
-                                    @if($user->role == 'Admin')
-                                        <span class="badge-custom badge-role-admin">
-                                            <i class="bi bi-shield-fill-check me-1"></i>{{ $user->role }}
-                                        </span>
-                                    @elseif($user->role == 'Dosen')
-                                        <span class="badge-custom badge-role-dosen">
-                                            <i class="bi bi-mortarboard-fill me-1"></i>{{ $user->role }}
-                                        </span>
-                                    @else
-                                        <span class="badge-custom badge-role-mahasiswa">
-                                            <i class="bi bi-person-fill me-1"></i>{{ $user->role }}
-                                        </span>
-                                    @endif
+                                    {{ $student->phone ?? '-' }}
                                 </div>
                             </div>
 
@@ -327,7 +306,7 @@
                                     <i class="bi bi-toggle-on me-2"></i>Status
                                 </div>
                                 <div class="info-value">
-                                    @if($user->status == 'Active')
+                                    @if($student->status == 'Active')
                                         <span class="badge-custom badge-status-active">
                                             <i class="bi bi-check-circle-fill me-1"></i>Active
                                         </span>
@@ -344,8 +323,8 @@
                                     <i class="bi bi-calendar-plus me-2"></i>Registered Since
                                 </div>
                                 <div class="info-value">
-                                    {{ \Carbon\Carbon::parse($user->created_at)->format('d F Y, H:i') }} WIB
-                                    <small class="text-muted">({{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }})</small>
+                                    {{ \Carbon\Carbon::parse($student->created_at)->format('d F Y, H:i') }} WIB
+                                    <small class="text-muted">({{ \Carbon\Carbon::parse($student->created_at)->diffForHumans() }})</small>
                                 </div>
                             </div>
 
@@ -354,8 +333,8 @@
                                     <i class="bi bi-clock-history me-2"></i>Last Updated
                                 </div>
                                 <div class="info-value">
-                                    {{ \Carbon\Carbon::parse($user->updated_at)->format('d F Y, H:i') }} WIB
-                                    <small class="text-muted">({{ \Carbon\Carbon::parse($user->updated_at)->diffForHumans() }})</small>
+                                    {{ \Carbon\Carbon::parse($student->updated_at)->format('d F Y, H:i') }} WIB
+                                    <small class="text-muted">({{ \Carbon\Carbon::parse($student->updated_at)->diffForHumans() }})</small>
                                 </div>
                             </div>
                         </div>
@@ -365,7 +344,7 @@
                             <a href="{{ route('admin.students.index') }}" class="btn btn-secondary btn-custom">
                                 <i class="bi bi-arrow-left me-1"></i> Back
                             </a>
-                            <a href="{{ route('admin.students.edit', $user->userID) }}" class="btn btn-edit btn-custom">
+                            <a href="{{ route('admin.students.edit', $student->userID) }}" class="btn btn-edit btn-custom">
                                 <i class="bi bi-pencil me-1"></i> Edit User
                             </a>
                             <button type="button" class="btn btn-delete btn-custom" onclick="confirmDelete()">
@@ -386,13 +365,13 @@
                     <div class="card-body-custom">
                         <div class="stats-mini">
                             <i class="bi bi-calendar-check"></i>
-                            <h3>{{ \Carbon\Carbon::parse($user->created_at)->diffInDays(now()) }}</h3>
+                            <h3>{{ \Carbon\Carbon::parse($student->created_at)->diffInDays(now()) }}</h3>
                             <p>Joining Day</p>
                         </div>
 
                         <div class="stats-mini">
                             <i class="bi bi-activity"></i>
-                            <h3>{{ $user->status == 'Active' ? 'Aktif' : 'Tidak Aktif' }}</h3>
+                            <h3>{{ $student->status == 'Active' ? 'Aktif' : 'Tidak Aktif' }}</h3>
                             <p>Account Status</p>
                         </div>
                     </div>
@@ -410,7 +389,7 @@
                             </div>
                             <div class="timeline-content">
                                 <h6>User Registered</h6>
-                                <p>{{ \Carbon\Carbon::parse($user->created_at)->format('d M Y, H:i') }}</p>
+                                <p>{{ \Carbon\Carbon::parse($student->created_at)->format('d M Y, H:i') }}</p>
                             </div>
                         </div>
 
@@ -420,11 +399,11 @@
                             </div>
                             <div class="timeline-content">
                                 <h6>Last Updated Data</h6>
-                                <p>{{ \Carbon\Carbon::parse($user->updated_at)->format('d M Y, H:i') }}</p>
+                                <p>{{ \Carbon\Carbon::parse($student->updated_at)->format('d M Y, H:i') }}</p>
                             </div>
                         </div>
 
-                        @if($user->status == 'Active')
+                        @if($student->status == 'Active')
                         <div class="timeline-item">
                             <div class="timeline-icon">
                                 <i class="bi bi-check-circle"></i>
@@ -452,12 +431,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete the user? <strong>{{ $user->userName }}</strong>?</p>
+                    <p>Are you sure you want to delete the user? <strong>{{ $student->userName }}</strong>?</p>
                     <p class="text-muted small mb-0">This action cannot be undone and all related data will be deleted.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form action="{{ route('admin.students.destroy', $user->userID) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('admin.students.destroy', $student->userID) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">

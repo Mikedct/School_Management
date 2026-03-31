@@ -106,11 +106,11 @@
             <div class="col-lg-8">
                 <div class="info-box">
                     <i class="bi bi-info-circle me-2"></i>
-                    <p class="d-inline">Edit user data: <strong>{{ $user->userName }}</strong> (ID: {{ $user->userID }})</p>
+                    <p class="d-inline">Edit user data: <strong>{{ $student->userName }}</strong> (ID: {{ $student->userID }})</p>
                 </div>
 
                 <div class="form-card">
-                    <form action="{{ route('admin.students.update', $user->userID) }}" method="POST">
+                    <form action="{{ route('admin.students.update', $student->userID) }}" method="POST">
                         @csrf
                         @method('PUT')
                         
@@ -123,7 +123,7 @@
                                        class="form-control @error('userName') is-invalid @enderror" 
                                        id="userName" 
                                        name="userName" 
-                                       value="{{ old('userName', $user->userName) }}"
+                                       value="{{ old('userName', $student->userName) }}"
                                        placeholder="Masukkan nama lengkap"
                                        required>
                                 @error('userName')
@@ -138,8 +138,8 @@
                                 <input type="email" 
                                        class="form-control @error('email') is-invalid @enderror" 
                                        id="email" 
-                                       name="email" 
-                                       value="{{ old('email', $user->email) }}"
+                                       name="userEmail" 
+                                       value="{{ old('userEmail', $student->userEmail) }}"
                                        placeholder="contoh@email.com"
                                        required>
                                 @error('email')
@@ -149,23 +149,6 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="role" class="form-label">
-                                    Role <span class="required-mark">*</span>
-                                </label>
-                                <select class="form-select @error('role') is-invalid @enderror" 
-                                        id="role" 
-                                        name="role" 
-                                        required>
-                                    <option value="">Choose a Role</option>
-                                    <option value="Mahasiswa" {{ old('role', $user->role) == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
-                                    <option value="Dosen" {{ old('role', $user->role) == 'Dosen' ? 'selected' : '' }}>Dosen</option>
-                                    <option value="Admin" {{ old('role', $user->role) == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                </select>
-                                @error('role')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
 
                             <div class="col-md-6 mb-3">
                                 <label for="status" class="form-label">
@@ -175,8 +158,8 @@
                                         id="status" 
                                         name="status" 
                                         required>
-                                    <option value="Active" {{ old('status', $user->status) == 'Active' ? 'selected' : '' }}>Active</option>
-                                    <option value="Inactive" {{ old('status', $user->status) == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                    <option value="Active" {{ old('status', $student->status) == 'Active' ? 'selected' : '' }}>Active</option>
+                                    <option value="Inactive" {{ old('status', $student->status) == 'Inactive' ? 'selected' : '' }}>Inactive</option>
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -190,7 +173,7 @@
                                    class="form-control @error('phone') is-invalid @enderror" 
                                    id="phone" 
                                    name="phone" 
-                                   value="{{ old('phone', $user->phone) }}"
+                                   value="{{ old('phone', $student->phone) }}"
                                    placeholder="08xxxxxxxxxx">
                             @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
