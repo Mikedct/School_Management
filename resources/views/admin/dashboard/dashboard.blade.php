@@ -14,7 +14,7 @@
 
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -24,7 +24,7 @@
 
         /* Header Section */
         .dashboard-header {
-            background: linear-gradient(135deg, #b72024 0%, #d32f2f 100%);
+            background: linear-gradient(135deg, #41aaf9 0%, #6f8ee8 100%);
             padding: 40px 0;
             margin-bottom: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -206,7 +206,7 @@
         /* Footer */
         .dashboard-footer {
             background: white;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid #0059aa;
             padding: 20px 0;
             margin-top: 50px;
         }
