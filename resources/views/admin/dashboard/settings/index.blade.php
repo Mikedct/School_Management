@@ -166,7 +166,7 @@
                             {{ strtoupper(substr($admin->adminName, 0, 1)) }}
                         </div>
                         <h4>{{ $admin->adminName }}</h4>
-                        <p>{{ $admin->email }}</p>
+                        <p>{{ $admin->adminEmail }}</p>
                         <span class="badge bg-danger mt-2">Administrator</span>
                     </div>
                 </div>
