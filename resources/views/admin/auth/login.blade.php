@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #00c4ff 0%, #8a1519 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #0F172A 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -36,7 +36,7 @@
         /* Left Section - Branding */
         .left-section {
             flex: 1;
-            background: linear-gradient(135deg, #00c4ff 0%, #d32f2f 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #0F172A 100%);
             padding: 60px 40px;
             display: flex;
             flex-direction: column;
@@ -202,14 +202,14 @@
 
         input[type="text"]:focus,
         input[type="password"]:focus {
-            border-color: #00c4ff;
-            box-shadow: 0 0 0 4px rgba(183, 32, 36, 0.1);
+            border-color: #38BDF8;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
         }
 
         button[type="submit"] {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #00c4ff 0%, #d32f2f 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #0F172A 100%);
             color: #ffffff;
             border: none;
             border-radius: 10px;

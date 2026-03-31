@@ -24,7 +24,7 @@
 
         /* Header Section */
         .dashboard-header {
-            background: linear-gradient(135deg, #41aaf9 0%, #6f8ee8 100%);
+            background: linear-gradient(135deg, #538ff8 0%, #538ff8 100%);
             padding: 40px 0;
             margin-bottom: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -206,7 +206,7 @@
         /* Footer */
         .dashboard-footer {
             background: white;
-            border-top: 1px solid #0059aa;
+            border-top: 1px solid #0F172A;
             padding: 20px 0;
             margin-top: 50px;
         }
@@ -266,7 +266,7 @@
                             <i class="bi bi-people-fill"></i>
                         </div>
                         <div class="stat-content">
-                            <h3>{{ $totalstudents ?? 0 }}</h3>
+                            <h3>{{ $totalStudents ?? 0 }}</h3>
                             <p>Total Students</p>
                         </div>
                     </div>
@@ -306,7 +306,7 @@
                         </div>
                         <h5 class="menu-title">report Management</h5>
                         <p class="menu-description">
-                            Managing PC lab malfunctions reported by students
+                            Managing attendance records by students
                         </p>
                         <span class="menu-badge">
                             <i class="bi bi-flag me-1"></i>Manage report
@@ -334,6 +334,12 @@
                     <a href="{{ route('admin.report.index') }}" class="btn btn-outline-info w-100 py-3 text-decoration-none">
                         <i class="bi bi-file-earmark-text-fill d-block mb-2" style="font-size: 24px;"></i>
                         See report
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="{{ route('admin.report.create') }}" class="btn btn-outline-info w-100 py-3 text-decoration-none">
+                        <i class="bi bi-file-earmark-text-fill d-block mb-2" style="font-size: 24px;"></i>
+                        Add report
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6">
