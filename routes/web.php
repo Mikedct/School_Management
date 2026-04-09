@@ -59,3 +59,6 @@ Route::prefix('admin')
         // Logout
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
     });
+
+
+    
