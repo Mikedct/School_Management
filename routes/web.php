@@ -60,5 +60,4 @@ Route::prefix('admin')
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
     });
 
-
-    
+    // halo
